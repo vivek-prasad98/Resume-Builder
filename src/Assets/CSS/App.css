@@ -24,15 +24,15 @@ li > p {
 }
 
 [contenteditable='true']:focus {
-  background-color: #dbd8d8;
+  background-color: #e2e2e2;
 }
 [contenteditable='true']:empty::before {
   content: attr(placeholder);
   display: block;
   width: 100%;
   height: 100%;
-  position: absolute;
-  left: 10px;
+  /* position: absolute; */
+  /* left: 10px; */
 }
 
 .brand li {
@@ -40,9 +40,75 @@ li > p {
 }
 .contentOptions > li:first-child,
 .brand > li:first-child {
-  width: 25%;
+  width: 28%;
 }
 .contentOptions > li:last-child,
 .brand > li:last-child {
-  width: 75%;
+  width: 72%;
+}
+.iconContainer > section:first-child {
+  width: 10%;
+  text-align: center;
+}
+.iconContainer > section:last-child {
+  width: 88%;
+  text-align: left;
+}
+
+.options {
+  margin-right: 12px;
+  margin-bottom: 12px;
+  min-width: 50px;
+}
+.addBtn,
+.removeBtn {
+  display: none;
+}
+.options:last-child:hover .addBtn {
+  display: inline-block;
+}
+.options:hover .removeBtn {
+  display: inline-block;
+}
+.options:first-child .removeBtn {
+  opacity: 0.5;
+}
+.professionList:last-child > .verticalLine {
+  display: none;
+}
+/* .addPro */
+.professionList {
+  box-sizing: border-box;
+  border: 2px dashed rgba(190, 190, 190, 0);
+}
+.professionList:hover {
+  border: 2px dashed rgb(190, 190, 190);
+}
+
+.maniBtn {
+  display: none;
+}
+
+.professionList:hover .maniBtn {
+  display: inline-block;
+}
+.customList {
+  display: inline-block;
+  min-width: 70px;
+}
+.customList:hover .maniBtn {
+  display: inline-block;
+}
+.maniBtn > .hintText {
+  display: none;
+  transition: all 0.5s ease-in-out;
+}
+.maniBtn:hover .hintText {
+  display: inline-block;
+}
+.cList {
+  border: 2px dashed rgba(179, 178, 178, 0);
+}
+.cList:hover {
+  border: 2px dashed rgb(179, 178, 178);
 }

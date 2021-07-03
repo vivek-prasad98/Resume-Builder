@@ -12,7 +12,7 @@ export default function Sheet () {
       console.log(canvas)
       const imgData = canvas.toDataURL('image/png')
       const pdf = new jsPDF('p', 'px', 'a3')
-      pdf.addImage(imgData, 'PNG', -2.5, 0)
+      pdf.addImage(imgData, 'PNG', 0, 0)
       pdf.save('download.pdf')
     })
   }
@@ -24,7 +24,7 @@ export default function Sheet () {
       </div>
       {/* <div> */}
       <div
-        className='bg-gray-100 rounded-lg relative mx-auto'
+        className='bg-white rounded-lg relative mx-auto'
         style={{ width: '29.7cm', minHeight: '42cm' }}
         ref={pdfRef}
       >

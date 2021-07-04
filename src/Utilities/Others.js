@@ -210,7 +210,7 @@ export class Customtitle extends Component {
         key={id}
       >
         <p
-          className='text-xl text-gray-600 p-1 capitalize'
+          className='text-2xl text-gray-600 p-1 capitalize text-center'
           placeholder='Enter skill'
           contentEditable='true'
         ></p>

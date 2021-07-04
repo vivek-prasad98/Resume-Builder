@@ -1,14 +1,35 @@
 import { AiFillCamera } from 'react-icons/ai'
 
 export default function Brand () {
+  const handleFileUpload = e => {
+    console.log(e.target.files)
+    const preview = document.querySelector('.preview')
+    const file = e.target.files[0]
+    const img = document.createElement('img')
+    img.classList.add('obj')
+    img.src = file.name
+    preview.appendChild(img)
+  }
   return (
     <ul className='brand m-0 p-0 px-32 pt-24 brand flex items-center'>
       <li className='block'>
         <div className='w-80 h-80 -ml-2 rounded-full my-0 mx-auto bg-gray-400 text-gray-200 font-bold flex flex-col text-xl flex justify-center items-center'>
-          <span className='text-3xl'>
-            <AiFillCamera />
-          </span>
-          <span>upload photo</span>
+          <label
+            for='upload'
+            className='text-center flex space-x-3 cursor-pointer'
+          >
+            <span className='text-3xl'>
+              <AiFillCamera />
+            </span>
+            <span>upload photo</span>
+          </label>
+          <span className='preview w-32 h-32 absolute top-2/4 left-2/4'></span>
+          <input
+            type='file'
+            className='block hidden'
+            id='upload'
+            onChange={handleFileUpload}
+          />
         </div>
       </li>
       <li className='text-left block w-full relative flex items-center'>

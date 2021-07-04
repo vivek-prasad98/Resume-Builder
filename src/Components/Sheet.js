@@ -1,19 +1,31 @@
 import { useRef } from 'react'
 import { jsPDF } from 'jspdf'
-import html2canvas from 'html2canvas'
+// import html2canvas from 'html2canvas'
 import Brand from './Resume/brand'
 import Content from './Resume/content'
+import html2PDF from 'jspdf-html2canvas'
 
 export default function Sheet () {
   const pdfRef = useRef(null)
 
   const toPdf = () => {
-    html2canvas(pdfRef.current).then(canvas => {
-      console.log(canvas)
-      const imgData = canvas.toDataURL('image/png')
-      const pdf = new jsPDF('p', 'px', 'a3')
-      pdf.addImage(imgData, 'PNG', 0, 0)
-      pdf.save('download.pdf')
+    // html2canvas(pdfRef.current).then(canvas => {
+    //   console.log(canvas)
+    //   const imgData = canvas.toDataURL('image/jpeg')
+    //   const pdf = new jsPDF('p', 'px', 'a3')
+    //   pdf.addImage(imgData, 'JPEG', 0, 0)
+    //   pdf.save('download.pdf')
+    // })
+    html2PDF(pdfRef.current, {
+      jsPDF: {
+        format: 'a3'
+      },
+      html2canvas: {
+        scrollX: 0,
+        scrollY: -window.scrollY
+      },
+      imageType: 'image/jpeg',
+      output: './pdf/generate.pdf'
     })
   }
 
@@ -24,7 +36,7 @@ export default function Sheet () {
       </div>
       {/* <div> */}
       <div
-        className='bg-white rounded-lg relative mx-auto'
+        className='bg-white rounded-lg relative mx-auto h-full'
         style={{ width: '29.7cm', minHeight: '42cm' }}
         ref={pdfRef}
       >

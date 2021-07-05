@@ -1,14 +1,13 @@
 import { AiFillCamera } from 'react-icons/ai'
+import axios from 'axios'
 
 export default function Brand () {
   const handleFileUpload = e => {
-    console.log(e.target.files)
-    const preview = document.querySelector('.preview')
+    const formData = new FormData()
     const file = e.target.files[0]
-    const img = document.createElement('img')
-    img.classList.add('obj')
-    img.src = file.name
-    preview.appendChild(img)
+    const name = e.target.files[0].name
+    formData.append('myFile', file, name)
+    axios.post('./', formData)
   }
   return (
     <ul className='brand m-0 p-0 px-32 pt-24 brand flex items-center'>

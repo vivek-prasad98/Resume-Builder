@@ -27,3 +27,26 @@ export function GenerateId (length) {
     strId += rawString[Math.floor(Math.random() * rawString.length)]
   return strId
 }
+
+export function GetHeight () {
+  const container = document.querySelector('.contentOptions')
+  const limit = document.querySelector('.bottomLimit')
+  let contBottom = container.getBoundingClientRect().bottom
+  let limitTop = limit.getBoundingClientRect().top
+  console.log(contBottom, limitTop)
+  console.log(limitTop - contBottom)
+  if (limitTop - contBottom < 70) {
+    limit.removeAttribute('style')
+    alert('Now content is exceeding the paper size!')
+  }
+}
+
+export function HideLimit () {
+  const container = document.querySelector('.contentOptions')
+  const limit = document.querySelector('.bottomLimit')
+  let contBottom = container.getBoundingClientRect().bottom
+  let limitTop = limit.getBoundingClientRect().top
+  console.log('de ', limitTop - contBottom)
+  if (limitTop - contBottom > -80 && limit)
+    limit.setAttribute('style', 'opacity:0')
+}

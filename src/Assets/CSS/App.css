@@ -112,3 +112,12 @@ li > p {
 .cList:hover {
   border: 2px dashed rgb(179, 178, 178);
 }
+.bottomLimit {
+  top: 150rem;
+}
+.listOfOptions > li:first-child {
+  width: 40%;
+}
+.listOfOptions > li:last-child {
+  width: 60%;
+}

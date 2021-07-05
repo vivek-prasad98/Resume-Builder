@@ -1,21 +1,15 @@
-import { useRef } from 'react'
-import { jsPDF } from 'jspdf'
-// import html2canvas from 'html2canvas'
+import { useRef, useState, useEffect } from 'react'
 import Brand from './Resume/brand'
 import Content from './Resume/content'
 import html2PDF from 'jspdf-html2canvas'
-
+import { Tools } from './Resume/Toolkit'
+import gsap from 'gsap'
 export default function Sheet () {
   const pdfRef = useRef(null)
+  let [isVisible, updateVisible] = useState(false)
+  let [isVisibleOptions, updateVisibleOptions] = useState(false)
 
   const toPdf = () => {
-    // html2canvas(pdfRef.current).then(canvas => {
-    //   console.log(canvas)
-    //   const imgData = canvas.toDataURL('image/jpeg')
-    //   const pdf = new jsPDF('p', 'px', 'a3')
-    //   pdf.addImage(imgData, 'JPEG', 0, 0)
-    //   pdf.save('download.pdf')
-    // })
     html2PDF(pdfRef.current, {
       jsPDF: {
         format: 'a3'
@@ -29,10 +23,35 @@ export default function Sheet () {
     })
   }
 
+  useEffect(() => {
+    gsap.from('.fadeIn', { duration: 0.5, opacity: 0 })
+    return () => gsap.from('.fadeIn', { duration: 0.5, opacity: 1 })
+  })
+  function makeVisibile () {
+    updateVisible(!isVisible)
+  }
+  function makeItVisibile () {
+    updateVisibleOptions(!isVisibleOptions)
+  }
+
   return (
     <div class='sheet w-full h-auto block bg-gradient-to-r from-blue-400 to-blue-500 py-32 relative'>
-      <div className='text-4xl text-gray-300 fixed left-1/2 top-16 transform -translate-x-1/2 bg-gray-700 p-6 rounded-lg shadow-2xl'>
-        Toolkit
+      {isVisible || isVisibleOptions ? (
+        <div
+          class='block fadeIn w-full h-screen fixed top-0 bottom-0 left-0 right-0'
+          style={{ background: 'rgba(17, 17, 17, 0.685)', zIndex: 1 }}
+        ></div>
+      ) : null}
+      <div
+        className='text-4xl text-gray-300 fixed left-1/2 top-16 transform -translate-x-1/2 bg-gray-800 rounded-lg shadow-2xl'
+        style={{ zIndex: '999' }}
+      >
+        <Tools
+          click={makeVisibile}
+          click2={makeItVisibile}
+          canIShow={isVisible}
+          showThis={isVisibleOptions}
+        />
       </div>
       {/* <div> */}
       <div
@@ -48,6 +67,10 @@ export default function Sheet () {
             <Content />
           </li>
         </ul>
+        <div
+          className='bottomLimit w-full h-1 border-b-2 border-gray-400 border-dashed absolute'
+          style={{ opacity: 0 }}
+        ></div>
       </div>
       {/* </div> */}
       <button

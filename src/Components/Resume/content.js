@@ -7,7 +7,7 @@ export default function Content () {
   return (
     <ul
       className='contentOptions px-32 flex text-left mt-16 h-full'
-      onClick={handleChange}
+      onResize={handleChange}
     >
       <li className='relative'>
         <Personal />

@@ -4,7 +4,7 @@ import {
   AiFillMinusCircle,
   AiFillCheckCircle
 } from 'react-icons/ai'
-import { AddButton, GenerateId } from './helpers'
+import { AddButton, GenerateId, GetHeight, HideLimit } from './helpers'
 
 export class Other extends Component {
   constructor (props) {
@@ -15,9 +15,11 @@ export class Other extends Component {
     this.decreaseList = this.decreaseList.bind(this)
   }
   increaseList () {
+    GetHeight()
     this.setState({ count: this.state.count + 1 })
   }
   decreaseList () {
+    HideLimit()
     if (this.state.count < 2) return
     this.setState({ count: this.state.count - 1 })
   }
@@ -91,9 +93,11 @@ export class Education extends Component {
     this.decreaseList = this.decreaseList.bind(this)
   }
   increaseList () {
+    GetHeight()
     this.setState({ count: this.state.count + 1 })
   }
   decreaseList () {
+    HideLimit()
     if (this.state.count < 2) return
     this.setState({ count: this.state.count - 1 })
   }
@@ -177,6 +181,7 @@ export class Customtitle extends Component {
 
   // Adds one more item
   addOneItem () {
+    GetHeight()
     const newId = GenerateId(10)
     let temp = [...this.state.it]
     temp.push({
@@ -188,14 +193,13 @@ export class Customtitle extends Component {
 
   // Removes one item where clicked
   removeOneItem (id) {
+    HideLimit()
     let temp = [...this.state.it]
     let idx
     temp.forEach((item, index) => {
       if (item.id === id) idx = index
     })
-    console.log(idx, temp)
     temp.splice(idx, 1)
-    console.log(temp)
     this.setState({ it: temp })
   }
 
@@ -269,14 +273,13 @@ export class ListCustomtitle extends Component {
 
   // Removes one item where clicked
   removeOneItem (id) {
+    HideLimit()
     let temp = [...this.state.it]
     let idx
     temp.forEach((item, index) => {
       if (item.id === id) idx = index
     })
-    console.log(idx, temp)
     temp.splice(idx, 1)
-    console.log(temp)
     this.setState({ it: temp })
   }
 

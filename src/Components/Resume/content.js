@@ -1,6 +1,6 @@
 import Personal from './personal'
 import Profession from './professional'
-export default function Content () {
+export default function Content ({ toggleOptions }) {
   function handleChange () {
     alert('Changed!')
   }
@@ -10,10 +10,10 @@ export default function Content () {
       onResize={handleChange}
     >
       <li className='relative'>
-        <Personal />
+        <Personal options={toggleOptions} />
       </li>
       <li className='relative'>
-        <Profession />
+        <Profession options={toggleOptions} />
       </li>
     </ul>
   )

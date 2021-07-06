@@ -47,11 +47,11 @@ li > p {
   width: 72%;
 }
 .iconContainer > section:first-child {
-  width: 10%;
+  width: 9.5%;
   text-align: center;
 }
 .iconContainer > section:last-child {
-  width: 88%;
+  width: 90%;
   text-align: left;
 }
 
@@ -120,4 +120,27 @@ li > p {
 }
 .listOfOptions > li:last-child {
   width: 60%;
+}
+.shiftRight {
+  right: 5px;
+}
+#spinnerContainer {
+  stroke-width: 5;
+  stroke: #8ba8f8;
+}
+#spinnerBar {
+  stroke-dasharray: 113;
+  stroke-dashoffset: 89;
+  stroke-width: 5;
+  stroke: rgb(240, 240, 240);
+  animation: spin 1s linear infinite;
+  transform-origin: center;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+#spinnerSvg {
+  padding: 5px;
 }

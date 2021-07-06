@@ -54,11 +54,10 @@ export class Other extends Component {
           </p>
           <section className='flex justify-between'>
             <p
-              className='text-xl font-bold text-gray-500 p-0 uppercase'
+              className='text-2xl font-bold text-gray-500 p-0 uppercase'
               placeholder='Employer'
               contentEditable='true'
             >
-              Employer
             </p>
             <p className='text-xl text-right font-bold text-gray-400 p-0 uppercase'>
               <span
@@ -71,7 +70,7 @@ export class Other extends Component {
           <p
             placeholder='In this text field your can describe your duties. Try to focus on accomplishments that serve as concrete examples to the type of problems you can solve to your future employer.'
             contentEditable='true'
-            className='text-xl text-gray-500'
+            className='text-2xl text-gray-500'
           ></p>
         </li>
       )

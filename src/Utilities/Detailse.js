@@ -9,78 +9,109 @@ import {
   FaGithubAlt,
   FaTwitter
 } from 'react-icons/fa'
-export function Personaldetails () {
-  const options = ['Birth Date', 'Natinality', 'Address', 'Marital Status']
+export function Personaldetails ({ selectOptions }) {
+  const options = [
+    {
+      title: 'Birth Date',
+      visibility: selectOptions.birth
+    },
+    {
+      title: 'Address',
+      visibility: selectOptions.address
+    },
+    {
+      title: 'Nationality',
+      visibility: selectOptions.natoinality
+    },
+    {
+      title: 'Marital Status',
+      visibility: selectOptions.maritalStatus
+    }
+  ]
 
   return options.map((option, index) => {
-    let str = 'Enter your ' + option
-    return (
-      <>
-        <li key={index} className='mb-3 pr-6'>
-          <p
-            className='p-0 font-bold text-blue-400'
-            contentEditable='true'
-            placeholder={option}
-          >
-            {option}
-          </p>
-          <p className='p-0' contentEditable='true' placeholder={str}></p>
-        </li>
-      </>
-    )
+    let str = 'Enter your ' + option.title
+    if (option.visibility) {
+      return (
+        <>
+          <li key={index} className='mb-3 pr-6'>
+            <p
+              className='p-0 font-bold text-blue-400'
+              contentEditable='true'
+              placeholder={option.title}
+            >
+              {option.title}
+            </p>
+            <p className='p-0' contentEditable='true' placeholder={str}></p>
+          </li>
+        </>
+      )
+    } else return null
   })
 }
 
-export function Social () {
+export function Social ({ selectOptions }) {
   const icons = [
     {
       name: 'Email',
-      icon: <FaRegEnvelope />
+      icon: <FaRegEnvelope />,
+      visibility: selectOptions.email
     },
     {
       name: 'phone number',
-      icon: <FaPhoneAlt />
+      icon: <FaPhoneAlt />,
+      visibility: selectOptions.phone
     },
     {
       name: 'Website Url',
-      icon: <FaGlobe />
+      icon: <FaGlobe />,
+      visibility: selectOptions.website
     },
     {
       name: 'Username',
-      icon: <FaLinkedinIn />
+      icon: <FaLinkedinIn />,
+      visibility: selectOptions.linkedin
     },
     {
       name: 'Username',
-      icon: <FaGithubAlt />
+      icon: <FaGithubAlt />,
+      visibility: selectOptions.github
     },
     {
       name: 'Username',
-      icon: <FaTwitter />
+      icon: <FaTwitter />,
+      visibility: selectOptions.twitter
     },
     {
       name: 'Username',
-      icon: <FaInstagram />
+      icon: <FaInstagram />,
+      visibility: selectOptions.insta
     }
   ]
   let lists = icons.map((iconData, index) => {
     let str = 'Enter your ' + iconData.name
     let idx = index * 100
-    return (
-      <li className='iconContainer flex items-center pr-12' key={idx}>
-        <section className='w-6 h-10 mr-3 rounded-full bg-blue-500 flex justify-center items-center text-gray-200 text-lg'>
-          {iconData.icon}
-        </section>
-        <section>
-          <span
-            className='border-b border-gray-400 pb-2'
-            placeholder={str}
-            contentEditable='true'
+    if (iconData.visibility) {
+      return (
+        <li className='iconContainer flex items-center pr-12' key={idx}>
+          <section
+            className='w-9 h-9 mr-3 rounded-full bg-blue-500 flex justify-center items-center text-gray-200 text-base'
+            style={{ width: '23px' }}
           >
-            {str}
-          </span>
-        </section>
-      </li>
-    )
+            {iconData.icon}
+          </section>
+          <section>
+            <span
+              className='border-b border-gray-400 pb-2'
+              placeholder={str}
+              contentEditable='true'
+            >
+              {/* {str} */}
+            </span>
+          </section>
+        </li>
+      )
+    } else return null
   })
   return lists
 }

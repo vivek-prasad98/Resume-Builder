@@ -29,7 +29,12 @@ export class Tools extends React.Component {
             <IoOptions />
             <span className='font-bold text-lg uppercase'>sections</span>
           </span>
-          {this.props.showThis ? <SectionOptions /> : null}
+          {this.props.showThis ? (
+            <SectionOptions
+              options={this.props.toggleOptions}
+              show={this.props.showThings}
+            />
+          ) : null}
         </li>
       </ul>
     )

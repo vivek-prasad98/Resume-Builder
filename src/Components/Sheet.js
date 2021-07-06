@@ -1,17 +1,61 @@
-import { useRef, useState, useEffect } from 'react'
+import React from 'react'
 import Brand from './Resume/brand'
 import Content from './Resume/content'
 import html2PDF from 'jspdf-html2canvas'
 import { Tools } from './Resume/Toolkit'
 import gsap from 'gsap'
-export default function Sheet () {
-  const pdfRef = useRef(null)
-  let [isVisible, updateVisible] = useState(false)
-  let [isVisibleOptions, updateVisibleOptions] = useState(false)
+import { FaDownload } from 'react-icons/fa'
+import { GrContact } from 'react-icons/gr'
 
-  const toPdf = () => {
-    html2PDF(pdfRef.current, {
+export default class Sheet extends React.Component {
+  constructor () {
+    super()
+    this.pdfRef = React.createRef(null)
+    this.state = {
+      isVisible: false,
+      isVisibleOptions: false,
+      toggleSections: {
+        picture: true,
+        profile: true,
+        address: true,
+        birth: true,
+        natoinality: false,
+        maritalStatus: false,
+        email: true,
+        phone: true,
+        website: false,
+        linkedin: false,
+        github: false,
+        twitter: false,
+        insta: false,
+        customTitle: false,
+        name: true,
+        profession: true,
+        work: true,
+        education: true,
+        skill1: false,
+        skill2: false,
+        additional: false
+      }
+    }
+
+    this.toPdf = this.toPdf.bind(this)
+    this.makeVisibile = this.makeVisibile.bind(this)
+    this.makeItVisibile = this.makeItVisibile.bind(this)
+    this.showSections = this.showSections.bind(this)
+  }
+
+  showSections (field, value) {
+    let temp = this.state.toggleSections
+    temp[field] = value
+    this.setState({ toggleSections: temp })
+  }
+
+  toPdf = async () => {
+    this.props.loading()
+    await html2PDF(this.pdfRef.current, {
       jsPDF: {
+        unit: 'px',
         format: 'a3'
       },
       html2canvas: {
@@ -19,66 +63,114 @@ export default function Sheet () {
         scrollY: -window.scrollY
       },
       imageType: 'image/jpeg',
-      output: './pdf/generate.pdf'
+      imageQuality: 1,
+      output: 'Resume.pdf'
+    }).then(() => {
+      this.props.loading()
     })
   }
 
-  useEffect(() => {
+  componentDidMount () {
     gsap.from('.fadeIn', { duration: 0.5, opacity: 0 })
-    return () => gsap.from('.fadeIn', { duration: 0.5, opacity: 1 })
-  })
-  function makeVisibile () {
-    updateVisible(!isVisible)
-  }
-  function makeItVisibile () {
-    updateVisibleOptions(!isVisibleOptions)
+    gsap.from('.toolsContainer', {
+      duration: 1,
+      delay: 0.6,
+      scale: 0.4,
+      opacity: 0,
+      ease: 'elastic.out(1.7)'
+    })
+    gsap.from('.btn1', {
+      duration: 1,
+      delay: 1.6,
+      scale: 0.4,
+      opacity: 0,
+      ease: 'elastic.inOut(1.7)'
+    })
+    gsap.from('.btn2', {
+      duration: 1,
+      delay: 1.8,
+      scale: 0.4,
+      opacity: 0,
+      ease: 'elastic.inOut(1.7)'
+    })
+    gsap.from(this.pdfRef.current, {
+      duration: 0.5,
+      delay: 0.2,
+      y: 200,
+      opacity: 0,
+      ease: 'back.out(1.7)'
+    })
   }
 
-  return (
-    <div class='sheet w-full h-auto block bg-gradient-to-r from-blue-400 to-blue-500 py-32 relative'>
-      {isVisible || isVisibleOptions ? (
+  makeVisibile () {
+    let temp = this.state.isVisible
+    this.setState({ isVisible: !temp })
+  }
+
+  makeItVisibile () {
+    let temp = this.state.isVisibleOptions
+    this.setState({ isVisibleOptions: !temp })
+  }
+
+  render () {
+    return (
+      <div class='sheet w-full h-auto block bg-gradient-to-r from-blue-400 to-blue-500 py-32 relative'>
+        {this.state.isVisible || this.state.isVisibleOptions ? (
+          <div
+            class='block fadeIn w-full h-screen fixed top-0 bottom-0 left-0 right-0'
+            style={{ background: 'rgba(17, 17, 17, 0.685)', zIndex: 1 }}
+          ></div>
+        ) : null}
         <div
-          class='block fadeIn w-full h-screen fixed top-0 bottom-0 left-0 right-0'
-          style={{ background: 'rgba(17, 17, 17, 0.685)', zIndex: 1 }}
-        ></div>
-      ) : null}
-      <div
-        className='text-4xl text-gray-300 fixed left-1/2 top-16 transform -translate-x-1/2 bg-gray-800 rounded-lg shadow-2xl'
-        style={{ zIndex: '999' }}
-      >
-        <Tools
-          click={makeVisibile}
-          click2={makeItVisibile}
-          canIShow={isVisible}
-          showThis={isVisibleOptions}
-        />
-      </div>
-      {/* <div> */}
-      <div
-        className='bg-white rounded-lg relative mx-auto h-full'
-        style={{ width: '29.7cm', minHeight: '42cm' }}
-        ref={pdfRef}
-      >
-        <ul className='m-0 p-0 relative'>
-          <li>
-            <Brand />
-          </li>
-          <li>
-            <Content />
-          </li>
-        </ul>
+          className='toolsContainer text-4xl text-gray-300 fixed left-1/2 top-12 transform -translate-x-1/2 bg-gray-800 rounded-lg shadow-2xl scale-90 2xl:scale-95'
+          style={{ zIndex: '999' }}
+        >
+          <Tools
+            click={this.makeVisibile}
+            click2={this.makeItVisibile}
+            canIShow={this.state.isVisible}
+            showThis={this.state.isVisibleOptions}
+            toggleOptions={this.state.toggleSections}
+            showThings={this.showSections}
+          />
+        </div>
         <div
-          className='bottomLimit w-full h-1 border-b-2 border-gray-400 border-dashed absolute'
-          style={{ opacity: 0 }}
-        ></div>
+          className='bg-white rounded-lg relative mx-auto h-full transform scale-90 2xl:scale-95 xl:-mt-32 2xl:-mt-12'
+          style={{ width: '29.7cm', minHeight: '42cm' }}
+          ref={this.pdfRef}
+        >
+          <ul className='m-0 p-0 relative'>
+            <li>
+              <Brand toggleOptions={this.state.toggleSections} />
+            </li>
+            <li>
+              <Content toggleOptions={this.state.toggleSections} />
+            </li>
+          </ul>
+          <div
+            className='bottomLimit w-full h-1 border-b-2 border-gray-400 border-dashed absolute'
+            style={{ opacity: 0 }}
+          ></div>
+        </div>
+        <button
+          className='btn1 fixed right-12 bottom-12 bg-yellow-400 text-gray-800 text-3xl p-8 rounded-full'
+          onClick={this.toPdf}
+        >
+          <FaDownload />
+        </button>
+        <button
+          className='btn2 fixed left-12 bottom-12 bg-red-400 text-gray-200 text-3xl rounded-full'
+          onClick={this.toPdf}
+        >
+          <a
+            href='mailto:kv641998@gmail.com?Thanks for using our Resume Maker. It definately helps you.'
+            rel='nolooper noopener'
+            className='p-8 block text-gray-100'
+          >
+            <GrContact />
+          </a>
+        </button>
       </div>
-      {/* </div> */}
-      <button
-        className='fixed right-12 bottom-12 bg-yellow-400 text-gray-900 text-2xl p-6'
-        onClick={toPdf}
-      >
-        Download
-      </button>
-    </div>
-  )
+    )
+  }
 }

@@ -44,7 +44,6 @@ export function ColorPicker (props) {
   ]
 
   function getColor (colorsPosible, arrayOfClasses, prefix) {
-    console.log(arrayOfClasses)
     let hasColor = ''
     colorsPosible.forEach(color => {
       if (arrayOfClasses.indexOf(prefix + color) !== -1) hasColor = color
@@ -54,7 +53,6 @@ export function ColorPicker (props) {
   function elementsToChange (elesToChange, classes, prefix) {
     const nextColor = getColor(colorsAvailable, classes, 'bg-')
     elesToChange.forEach(ele => {
-      console.log(ele)
       let currentClass = getColor(colorsAvailable, [...ele.classList], prefix)
       if (currentClass.length > 0) {
         ele.classList.remove(prefix + currentClass)

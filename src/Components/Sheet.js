@@ -44,6 +44,7 @@ export default class Sheet extends React.Component {
     this.makeVisibile = this.makeVisibile.bind(this)
     this.makeItVisibile = this.makeItVisibile.bind(this)
     this.showSections = this.showSections.bind(this)
+    console.clear()
   }
 
   showSections (field, value) {
@@ -105,11 +106,25 @@ export default class Sheet extends React.Component {
 
   makeVisibile () {
     let temp = this.state.isVisible
+    window.addEventListener('click', e => {
+      const c = document.querySelector('.fadeIn')
+      if (e.target === c) {
+        console.log(this.state)
+        this.setState({ isVisible: !temp })
+      }
+    })
     this.setState({ isVisible: !temp })
   }
 
   makeItVisibile () {
     let temp = this.state.isVisibleOptions
+    window.addEventListener('click', e => {
+      const c = document.querySelector('.fadeIn')
+      if (e.target === c) {
+        console.log(this.state)
+        this.setState({ isVisibleOptions: !temp })
+      }
+    })
     this.setState({ isVisibleOptions: !temp })
   }
 

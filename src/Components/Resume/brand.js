@@ -42,7 +42,7 @@ export default function Brand ({ toggleOptions }) {
           <p
             contentEditable='true'
             placeholder='Your name'
-            className='text-8xl font-bold text-gray-700 uppercase'
+            className='myColor text-8xl font-bold text-blue-500 uppercase'
           ></p>
           {toggleOptions.profession ? (
             <p

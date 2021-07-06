@@ -12,10 +12,11 @@ export default class Sheet extends React.Component {
     super()
     this.pdfRef = React.createRef(null)
     this.state = {
+      loading: false,
       isVisible: false,
       isVisibleOptions: false,
       toggleSections: {
-        picture: true,
+        picture: false,
         profile: true,
         address: true,
         birth: true,
@@ -52,7 +53,7 @@ export default class Sheet extends React.Component {
   }
 
   toPdf = async () => {
-    this.props.loading()
+    document.querySelector('.downloadingStatus').classList.remove('hidden')
     await html2PDF(this.pdfRef.current, {
       jsPDF: {
         unit: 'px',
@@ -66,7 +67,7 @@ export default class Sheet extends React.Component {
       imageQuality: 1,
       output: 'Resume.pdf'
     }).then(() => {
-      this.props.loading()
+      document.querySelector('.downloadingStatus').classList.add('hidden')
     })
   }
 
@@ -115,6 +116,22 @@ export default class Sheet extends React.Component {
   render () {
     return (
       <div class='sheet w-full h-auto block bg-gradient-to-r from-blue-400 to-blue-500 py-32 relative'>
+        <div
+          className='fixed downloadingStatus bg-gradient-to-r top-0 hidden h-screen text-4xl flex justify-center items-center block w-full overflow-hidden from-blue-400 to-purple-500'
+          style={{ zIndex: 9999 }}
+        >
+          <svg
+            width='95'
+            id='spinnerSvg'
+            height='55'
+            viewBox='0 0 40 40'
+            fill='none'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <circle cx='20' cy='20' r='18' id='spinnerContainer' />
+            <circle cx='20' cy='20' r='18' id='spinnerBar' />
+          </svg>
+        </div>
         {this.state.isVisible || this.state.isVisibleOptions ? (
           <div
             class='block fadeIn w-full h-screen fixed top-0 bottom-0 left-0 right-0'
@@ -135,7 +152,7 @@ export default class Sheet extends React.Component {
           />
         </div>
         <div
-          className='bg-white rounded-lg relative mx-auto h-full transform scale-90 2xl:scale-95 xl:-mt-32 2xl:-mt-12'
+          className='bg-white rounded-lg relative mx-auto h-full transform scale-90 2xl:scale-95 xl:-mt-32 2xl:-mt-12 '
           style={{ width: '29.7cm', minHeight: '42cm' }}
           ref={this.pdfRef}
         >

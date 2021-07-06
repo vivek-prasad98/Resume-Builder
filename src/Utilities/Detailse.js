@@ -36,7 +36,7 @@ export function Personaldetails ({ selectOptions }) {
         <>
           <li key={index} className='mb-3 pr-6'>
             <p
-              className='p-0 font-bold text-blue-400'
+              className='p-0 font-bold text-blue-500 myColor'
               contentEditable='true'
               placeholder={option.title}
             >
@@ -95,7 +95,7 @@ export function Social ({ selectOptions }) {
       return (
         <li className='iconContainer flex items-center pr-12' key={idx}>
           <section
-            className='w-9 h-9 mr-3 rounded-full bg-blue-500 flex justify-center items-center text-gray-200 text-base'
+            className='w-9 h-9 mr-3 rounded-full bg-blue-500 myBgColor flex justify-center items-center text-gray-200 text-base'
             style={{ width: '23px' }}
           >
             {iconData.icon}

@@ -1,6 +1,7 @@
 import { VscTriangleDown } from 'react-icons/vsc'
 export function AddButton (props) {
-  let mainClasses = 'maniBtn text-yellow-500 text-3xl absolute ' + props.classes
+  let mainClasses =
+    'maniBtn text-yellow-500 myColor text-3xl absolute ' + props.classes
   return (
     <button onClick={props.click} className={mainClasses}>
       <props.icon />

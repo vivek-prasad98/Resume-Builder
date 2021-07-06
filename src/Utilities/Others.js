@@ -43,7 +43,7 @@ export class Other extends Component {
             icon={AiFillMinusCircle}
             classes={'-top-4  right-12'}
           />
-          <span className='w-4 h-4 bg-blue-500 block absolute rounded-full left-3 top-6'></span>
+          <span className='w-4 h-4 bg-blue-500 block absolute myBgColor rounded-full left-3 top-6'></span>
           <span className='verticalLine w-1 h-5/6 bg-gray-300 block absolute left-4 top-14'></span>
           <p
             className='text-2xl font-bold text-gray-600 p-0 uppercase'
@@ -57,8 +57,7 @@ export class Other extends Component {
               className='text-2xl font-bold text-gray-500 p-0 uppercase'
               placeholder='Employer'
               contentEditable='true'
-            >
-            </p>
+            ></p>
             <p className='text-xl text-right font-bold text-gray-400 p-0 uppercase'>
               <span
                 placeholder='From-Until'
@@ -120,23 +119,19 @@ export class Education extends Component {
             icon={AiFillMinusCircle}
             classes={'-top-4  right-12'}
           />
-          <span className='w-4 h-4 bg-blue-500 block absolute rounded-full left-3 top-6'></span>
+          <span className='w-4 h-4 bg-blue-500 block absolute rounded-full myBgColor left-3 top-6'></span>
           <span className='verticalLine w-1 h-5/6 bg-gray-300 block absolute left-4 top-14'></span>
           <p
             className='text-2xl font-bold text-gray-600 p-0 uppercase'
             placeholder='Degree'
             contentEditable='true'
-          >
-            Degree
-          </p>
+          ></p>
           <section className='flex justify-between'>
             <p
               className='text-xl font-bold text-gray-500 p-0 uppercase'
               placeholder='School'
               contentEditable='true'
-            >
-              School
-            </p>
+            ></p>
             <p className='text-xl text-right font-bold text-gray-400 p-0 uppercase'>
               <span
                 placeholder='From-Until'

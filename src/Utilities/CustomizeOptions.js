@@ -36,11 +36,41 @@ export function SelectFont () {
 
 export function ColorPicker (props) {
   const colorsAvailable = [
-    'bg-blue-500',
-    'bg-red-500',
-    'bg-yellow-500',
-    'bg-gray-800'
+    'blue-500',
+    'red-500',
+    'yellow-500',
+    'green-500',
+    'gray-700'
   ]
+
+  function getColor (colorsPosible, arrayOfClasses, prefix) {
+    console.log(arrayOfClasses)
+    let hasColor = ''
+    colorsPosible.forEach(color => {
+      if (arrayOfClasses.indexOf(prefix + color) !== -1) hasColor = color
+    })
+    return hasColor
+  }
+  function elementsToChange (elesToChange, classes, prefix) {
+    const nextColor = getColor(colorsAvailable, classes, 'bg-')
+    elesToChange.forEach(ele => {
+      console.log(ele)
+      let currentClass = getColor(colorsAvailable, [...ele.classList], prefix)
+      if (currentClass.length > 0) {
+        ele.classList.remove(prefix + currentClass)
+        ele.classList.add(prefix + nextColor)
+      }
+    })
+  }
+  function ChangeColors (e) {
+    const classes = [...e.target.classList]
+    const elementToChangeColor = [...document.querySelectorAll('.myColor')]
+    elementsToChange(elementToChangeColor, classes, 'text-')
+    const elementsToChangeBackground = [
+      ...document.querySelectorAll('.myBgColor')
+    ]
+    elementsToChange(elementsToChangeBackground, classes, 'bg-')
+  }
 
   useEffect(() => {
     if (props.showMe) {
@@ -52,10 +82,9 @@ export function ColorPicker (props) {
 
   function generatePicker () {
     let colorSet = colorsAvailable.map((color, index) => {
-      let classes = 'block w-14 h-14 rounded-full ' + color
-      console.log(classes)
+      let classes = 'block w-14 h-14 rounded-full bg-' + color
       return (
-        <li key={index * 5152}>
+        <li key={index * 5152} onClick={ChangeColors}>
           <span className={classes}></span>
         </li>
       )
@@ -66,7 +95,7 @@ export function ColorPicker (props) {
   return (
     <div className='relative'>
       <span
-        className='block w-16 h-16 rounded-full bg-blue-400 border-2 border-gray-400 cursor-pointer'
+        className='block w-16 h-16 rounded-full bg-blue-400 border-2 border-gray-100 cursor-pointer'
         onClick={props.click}
       ></span>
       {props.showMe ? (
@@ -116,7 +145,7 @@ function sideOneOptions (options, show) {
     <div>
       <ul>
         <li className='border-b block w-full border-gray-300 pb-4'>
-          <section className='opacity-100'>
+          <section className='opacity-100 pointer-events-none'>
             <span>
               {generateOptionWithLabels(
                 'Picture',

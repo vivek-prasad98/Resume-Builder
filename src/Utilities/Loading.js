@@ -1,7 +1,7 @@
 import './../Assets/CSS/App.css'
 export default function Loading () {
   return (
-    <div className='bg-gradient-to-r h-screen text-4xl flex justify-center items-center block w-full overflow-hidden from-blue-400 to-purple-500'>
+    <div className=' loadingContents bg-gradient-to-r h-screen text-4xl flex justify-center items-center block w-full overflow-hidden from-blue-400 to-purple-500'>
       <svg
         width='95'
         id='spinnerSvg'

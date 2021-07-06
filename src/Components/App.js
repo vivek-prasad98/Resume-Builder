@@ -9,28 +9,30 @@ function App () {
   function hideInstructions () {
     updateInstructions(false)
   }
-  function handleLoading () {
-    let temp = loading
-    updateLoading(!temp)
-  }
   useEffect(() => {
+    console.log('rendered!')
     setTimeout(() => {
       updateLoading(false)
       gsap.from('.Info', { duration: 0.5, scale: 0.2, ease: 'back.out(1.7)' })
     }, 500)
   }, [])
   return (
-    <div className='App bg-gradient-to-r from-blue-400 to-purple-500'>
+    <div className='App'>
+      <div
+        className='noAccess bg-gradient-to-r from-red-400 to-pink-500 w-screen h-screen overflow-hidden fixed flex flex-col justify-center items-center space-y-6 xl:hidden'
+        style={{ zIndex: 99999 }}
+      >
+        <p className='text-6xl md:text-8xl font-bold text-gray-200'>SORRY !</p>
+        <p className='text-2xl md:text-5xl text-gray-300'>
+          {' '}
+          For inconvenience this is Only accessed
+          <br /> Either in laptop or PC
+        </p>
+      </div>
       {loading ? (
         <Loading />
       ) : (
-        <>
-          {showInstructions ? (
-            Instructions(hideInstructions)
-          ) : (
-            <Sheet loading={handleLoading} />
-          )}
-        </>
+        <>{showInstructions ? Instructions(hideInstructions) : <Sheet />}</>
       )}
     </div>
   )
